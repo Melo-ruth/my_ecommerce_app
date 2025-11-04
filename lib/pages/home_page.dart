@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_ecommerce_app/components/bottom_nav_bar.dart';
+import 'package:my_ecommerce_app/pages/intro_page.dart';
 
 import 'cart_page.dart';
 import 'shop_page.dart';
@@ -40,6 +42,13 @@ class _HomePageState extends State<HomePage> {
         onTabChange: (index) => navigateBottomBar(index),
       ),
       appBar: AppBar(
+        title: Text(
+            "Mazima Sneakers",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Builder(
@@ -61,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         backgroundColor: Colors.grey[900],
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
 
           children: [
             //logo
@@ -74,18 +83,26 @@ class _HomePageState extends State<HomePage> {
 
 
             //other pages
-           const Padding(
+           Padding(
              padding: EdgeInsets.only(left: 10.0),
              child: ListTile(
+
                 leading: Icon(
                   Icons.home,
                   color: Colors.white,
                 ),
-
-                title: Text(
+               title: Text(
                   "Home",
                   style: TextStyle(color: Colors.white),
                 ),
+               onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => IntroPage(),
+                      ),
+                  );
+               },
+
               ),
            ),
 
@@ -96,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.info,
                     color: Colors.white,
                 ),
+
                 title: Text(
                   "About",
                   style: TextStyle(
@@ -105,22 +123,50 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            const Padding(
-               padding: EdgeInsets.only(left: 10.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
               child: ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.logout,
                   color: Colors.white,
                 ),
-                title: Text(
+                title: const Text(
                   'Logout',
-                   style: TextStyle(
-                      color: Colors.white,
-
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
+                onTap: () {
+                  Navigator.of(context).pop(); // Close the drawer first
+
+                  //  Alert Dialog
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => CupertinoAlertDialog(
+                      title: const Text("Log Out"),
+                      content: const Text("Are you sure you want to log out?"),
+                      actions: [
+                        CupertinoDialogAction(
+                          child: const Text("Cancel"),
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          isDestructiveAction: true,
+                          child: const Text("Log Out"),
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                            // Add logout logic here
+                            // Example:
+                            // Navigator.pushReplacementNamed(context, '/login');
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ),
+            )
+
 
 
           ],

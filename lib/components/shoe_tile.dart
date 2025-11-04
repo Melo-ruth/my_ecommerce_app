@@ -24,6 +24,7 @@ class ShoeTile extends StatelessWidget {
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),
+
             ),
             child: Image.asset(
               shoe.imagePath,
@@ -70,7 +71,7 @@ class ShoeTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      "\$${shoe.price}",
+                      "UGX ${shoe.price}",
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 17,
@@ -89,6 +90,8 @@ class ShoeTile extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),
                           bottomRight: Radius.circular(15),
+                          topRight: Radius.circular(12),
+                          bottomLeft: Radius.circular(15),
                         ),
                       ),
                       child: const Icon(
@@ -102,8 +105,12 @@ class ShoeTile extends StatelessWidget {
               ],
             ),
           ),
+
         ],
       ),
+
     );
+
+
   }
 }

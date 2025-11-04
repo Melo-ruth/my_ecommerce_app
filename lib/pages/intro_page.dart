@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:my_ecommerce_app/pages/login_page.dart";
 
 import "home_page.dart";
 
@@ -28,7 +29,7 @@ class IntroPage  extends StatelessWidget {
               const SizedBox(height: 48),
               //title
               const Text(
-                  "Just Do It",
+                  "Hype Store",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

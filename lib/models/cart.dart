@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:my_ecommerce_app/models/shoe.dart';
 
 class Cart extends ChangeNotifier{
+
   //list of shoes for sale
   List<Shoe>shoeShop = [
     Shoe(
