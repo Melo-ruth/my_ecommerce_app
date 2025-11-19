@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         title: Text(
-            "Mazima Sneakers",
+            "Sein Sneakers",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             //logo
             DrawerHeader(child: Image.asset(
-              "assets/images/logo.png",
+              "assets/images/shoes4.jpg",
               color: Colors.white,
 
             ),

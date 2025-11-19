@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:my_ecommerce_app/models/cart.dart';
+import 'package:my_ecommerce_app/pages/checkout_page.dart';
+import 'package:my_ecommerce_app/pages/intro_page.dart';
 import 'package:provider/provider.dart';
 //mport 'package:my_ecommerce_app/intro_page.dart';
 
-import 'pages/intro_page.dart';
+
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => Cart()),
+        ],
+        child: MyApp(),
+    ),
+  );
+
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    // --- Put the provider HERE, wrapping the MaterialApp ---
+    return ChangeNotifierProvider<Cart>(
       create: (context) => Cart(),
-      child: MyApp(),
-      builder: (context, child) => const MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroPage(),
-      )
-    );
+        ), // Your app starts here
+      );
+
   }
 }
+
+

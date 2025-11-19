@@ -9,31 +9,40 @@ class Cart extends ChangeNotifier{
         name: "Air max",
         price: "150,000",
         imagePath: "assets/images/shoes2.jpg",
-        description: "size 40"
+        description: "size 40",
     ),
     Shoe(
         name: "Nike Men's Air ",
         price: "350,000",
         imagePath: "assets/images/shoes3.jpg",
-        description: "size 46"
+        description: "size 46",
     ),
     Shoe(
         name: "KD Treys",
         price: "200,000",
         imagePath: "assets/images/shoes1.jpg",
-        description: "Size 39"
+        description: "Size 39",
     ),
     Shoe(
         name: "Nike React",
         price: "350,000",
         imagePath: "assets/images/shoes4.jpg",
-        description: "size 43"
+        description: "size 43",
     ),
 
   ];
 
   //list of items in user cart
 List<Shoe>userCart = [];
+double calculateTotal(){
+  double totalPrice = 0;
+  for (Shoe shoe in userCart){
+    String cleanPrice = shoe.price.replaceAll(",", "");
+    totalPrice += double.parse(cleanPrice);
+  }
+  return totalPrice;
+}
+
 
   //get list of shoes for sale
 List<Shoe>getShoeList(){
@@ -53,6 +62,7 @@ void addItemToCart(Shoe shoe){
     userCart.remove(shoe);
     notifyListeners();
   }
+
 
 
 }
