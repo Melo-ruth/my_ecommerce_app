@@ -1,4 +1,4 @@
-# my_ecommerce_app
+Sneaker Store App
 
 A mobile app for a sneaker store . 
 
