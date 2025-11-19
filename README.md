@@ -1,6 +1,6 @@
 # my_ecommerce_app
 
-A new Flutter project.
+A mobile app for a sneaker store . 
 
 ## Getting Started
 
