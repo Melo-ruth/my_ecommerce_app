@@ -49,18 +49,23 @@ class _ShopPageState extends State<ShopPage> {
               shoe.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                //search bar
-                Padding(
+          return GestureDetector(
+
+            behavior: HitTestBehavior.translucent,
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+
+                  //searchbar
+                  Padding(
                     padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: TextField(
-                    controller: searchController,
-                    onChanged: (value){
-                      setState(() => query = value);
-                      },
+                    child: TextField(
+                      controller: searchController,
+                      onChanged: (value){
+                        setState(() => query = value);
+                        },
                     decoration: InputDecoration(
                       prefixIcon:  const Icon(Icons.search, color:  Colors.grey,),
                       hintText:  "Search shoes...",
@@ -82,77 +87,37 @@ class _ShopPageState extends State<ShopPage> {
                       itemBuilder: (context, index){
                       final shoe = results[index];
 
+                      //horizontal list tile
                       return ListTile(
-                        leading: Image.asset(shoe.imagePath, width: 45,),
+                        leading: Image.asset(
+                          shoe.imagePath,
+                          width: 45,
+                        ),
                         title: Text(shoe.name),
                         subtitle: Text("Ugx ${shoe.price}"),
-                        onTap: (){
-                          setState(() {
-                            query = "";
-                            searchController.clear();
-                          });
+                        onTap: () {
+                          final selectedShoe = shoe;
+
+                          // Close keyboard but dont clear search yet
                           FocusScope.of(context).unfocus();
 
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ShoeDetailsPage(shoe: shoe)),
-                          );
-                        });
+                            context,
+                            MaterialPageRoute(builder: (context) => ShoeDetailsPage(shoe: selectedShoe)),
+                          ).then((_) {
+                            // Clear search after returning
+                            setState(() {
+                              query = "";
+                              searchController.clear();
+                            });
+                          });
+                        },
+
+                      );
                       }
                   ),
 
-                /**SearchAnchor(
-                  builder: (BuildContext context, SearchController controller) {
-                    return Container(
-                      width: 360,
-                      child: SearchBar(
-                        controller: controller,
-                        padding: const WidgetStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 10),
-                        ),
-                        onTap: () {
-                          controller.openView();
-                        },
-                        onChanged: (_) {
-                          controller.openView();
-                        },
-                        leading: const Icon(
-                            Icons.search,
-                            color: Colors.grey
-                        ),
-                        backgroundColor: WidgetStatePropertyAll<Color>(
-                            Colors.grey[100]!
-                        ),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  suggestionsBuilder: (BuildContext context, SearchController controller) {
-                    //get list of shoes
-                    final shoeList = Provider.of<Cart>(context,listen:false).getShoeList();
 
-                    //filter shoe based on user
-                    final query = controller.text.toLowerCase();
-                    final results = shoeList
-                        .where((shoe) => shoe.name.toLowerCase().contains(query))
-                        .toList();
-
-                    return List<ListTile>.generate(results.length, (int index) {
-                      final shoe = results[index];
-                      return ListTile(
-                        title: Text(shoe.name),
-                        onTap: () {
-                          controller.closeView(shoe.name);
-
-                        },
-                      );
-                    });
-                  },
-                ),**/
 
                 //messages
                 Padding(
@@ -205,7 +170,17 @@ class _ShopPageState extends State<ShopPage> {
 
                       return ShoeTile(
                         shoe: shoe,
-                        onTap: () => addShoeToCart(shoe),
+                        onTap: () {
+                          Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                  builder: (context) => ShoeDetailsPage(shoe: shoe),
+                              )
+                          );
+                        },
+                        onAddToCart: (){
+                          addShoeToCart(shoe);
+                        },
                       );
                     },
                   ),
@@ -220,6 +195,7 @@ class _ShopPageState extends State<ShopPage> {
                   //),
                 ),
 
+                //lower tiles
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GridView.builder(
@@ -235,35 +211,42 @@ class _ShopPageState extends State<ShopPage> {
 
                       itemBuilder: (context, index){
                         Shoe shoe = value.getShoeList()[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                                image: AssetImage(shoe.imagePath),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                        
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                    builder: (context) => ShoeDetailsPage(shoe: shoe),
+                                ),
+                            );
+                          },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  image: AssetImage(shoe.imagePath),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: Center(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
                                 //Image.asset(
                                   //shoe.imagePath,
                                   //height: 80,
                                   //fit: BoxFit.cover,
-                               // ),
-
-
-                                SizedBox(height: 10,),
+                               SizedBox(height: 10,),
                                 Expanded(
                                     child: Stack(
                                       children: [
                                         Positioned(
                                           bottom: 10,
-                                            left: 10,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                          left: 10,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                 Text(shoe.name, style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -307,6 +290,7 @@ class _ShopPageState extends State<ShopPage> {
                          ]
                         ),
                           ),
+                        ),
                         );
 
                       }
@@ -321,6 +305,7 @@ class _ShopPageState extends State<ShopPage> {
                 SizedBox(height: 10,),
               ],
             ),
+          ),
           );
         },
     );

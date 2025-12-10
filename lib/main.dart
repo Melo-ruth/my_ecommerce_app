@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:my_ecommerce_app/firebase_options.dart';
 import 'package:my_ecommerce_app/models/cart.dart';
 import 'package:my_ecommerce_app/pages/checkout_page.dart';
 import 'package:my_ecommerce_app/pages/intro_page.dart';
 import 'package:provider/provider.dart';
-//mport 'package:my_ecommerce_app/intro_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
 
-
-void main() {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => Cart()),
+          ChangeNotifierProvider(
+              create: (_) => Cart(),
+          ),
         ],
         child: MyApp(),
     ),
@@ -26,13 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --- Put the provider HERE, wrapping the MaterialApp ---
-    return ChangeNotifierProvider<Cart>(
-      create: (context) => Cart(),
-      child: const MaterialApp(
+    return  MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroPage(),
-        ), // Your app starts here
-      );
+        ); // Your app starts here
 
   }
 }

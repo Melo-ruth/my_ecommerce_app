@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.2.2
+  palette_generator_master: ^1.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +40,7 @@ dependencies:
   google_nav_bar: ^5.0.7
   provider: ^6.1.5+1
   checkout_screen_ui: ^1.0.1
+  firebase_core: ^4.2.1
 
 dev_dependencies:
   flutter_test:

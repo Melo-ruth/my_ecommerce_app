@@ -34,11 +34,15 @@ class Cart extends ChangeNotifier{
 
   //list of items in user cart
 List<Shoe>userCart = [];
+
 double calculateTotal(){
   double totalPrice = 0;
+
   for (Shoe shoe in userCart){
     String cleanPrice = shoe.price.replaceAll(",", "");
     totalPrice += double.parse(cleanPrice);
+    double itemPrice = double.parse(cleanPrice);
+    totalPrice += itemPrice * shoe.quantity;
   }
   return totalPrice;
 }
@@ -53,7 +57,25 @@ List<Shoe>getUserCart(){
   return userCart;
 }
   //add items to cart
-void addItemToCart(Shoe shoe){
+void addItemToCart(Shoe shoe , {int quantity =1}){
+  //if item is in cart
+  for (var item in userCart){
+    if (item.name == shoe.name){
+      item.quantity += quantity;
+      notifyListeners();
+      return;
+    }
+  }
+
+  Shoe newShoe = Shoe(
+      name: shoe.name,
+      price: shoe.price,
+      imagePath: shoe.imagePath,
+      description: shoe.description,
+  );
+
+
+
   userCart.add(shoe);
   notifyListeners();
 }

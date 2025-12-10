@@ -3,12 +3,21 @@ import '../models/shoe.dart';
 
 class ShoeTile extends StatelessWidget {
   final Shoe shoe;
-  void Function()? onTap;
-  ShoeTile({super.key, required this.shoe, required this.onTap});
+  final void Function()? onTap;
+  final void Function()? onAddToCart;
+
+  const ShoeTile({
+    super.key,
+    required this.shoe,
+    required this.onTap,
+    required this.onAddToCart,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  GestureDetector(
+      onTap: onTap,
+      child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       width: 260,
       height: 200,// same width for a nice wide card
@@ -82,7 +91,8 @@ class ShoeTile extends StatelessWidget {
 
                 // --- Plus button ---
                 GestureDetector(
-                  onTap: onTap,
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onAddToCart,
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: const BoxDecoration(
@@ -109,6 +119,7 @@ class ShoeTile extends StatelessWidget {
         ],
       ),
 
+    ),
     );
 
 

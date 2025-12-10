@@ -7,7 +7,11 @@ import 'package:provider/provider.dart';
 import '../components/cart_item.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  final Color backgroundColor;
+  const CartPage({
+    Key? key,
+    required this.backgroundColor,
+  }): super(key: key);
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -16,7 +20,19 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Scaffold(
+      backgroundColor: widget.backgroundColor,
+      appBar: AppBar(
+        title: Text(
+        "My Cart",
+          style: TextStyle(color: Colors.black),
+    ),
+      backgroundColor: widget.backgroundColor.withOpacity(0.8),
+      iconTheme: IconThemeData(color: Colors.black),
+      elevation: 0,
+      ),
+
+      body: Consumer<Cart>(
         builder: (context, value, child) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
@@ -24,12 +40,11 @@ class _CartPageState extends State<CartPage> {
         children: [
           //heading
           const Text(
-            'My Cart',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-
-            ),
+           'My Cart',
+           style: TextStyle(
+            fontWeight: FontWeight.bold,
+             fontSize: 24,
+           ),
           ),
 
            const SizedBox(height: 20),
@@ -79,6 +94,10 @@ class _CartPageState extends State<CartPage> {
         ],
 
       ),
-    ));
+    ),
+      ),
+    );
+
+
   }
 }
