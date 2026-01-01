@@ -1,4 +1,6 @@
 📱 Hype Sneakers App
+
+
 A modern Flutter application built to demonstrate clean UI, scalable architecture, and best development practices.
 
 🚀 Overview
