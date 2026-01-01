@@ -29,7 +29,7 @@ class _ShopPageState extends State<ShopPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text("Successfully added!"),
-        content: Text("check your cart"),
+        content: Text("Check your cart"),
 
       ),
     );

@@ -114,7 +114,7 @@ class _ShoeDetailsPageState extends State<ShoeDetailsPage> {
           children: [
            Image.asset(
                widget.shoe.imagePath,
-             height: 300,
+             height: 450,
              width: double.infinity,
              fit: BoxFit.cover,
            ),
@@ -178,24 +178,48 @@ class _ShoeDetailsPageState extends State<ShoeDetailsPage> {
       ),
       bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(double.infinity, 50),
-          ),
-            onPressed: () {
+        child: GestureDetector(
+            onTap: () {
               Provider.of<Cart>(context, listen: false).addItemToCart(widget.shoe, quantity: quantity);
-
-            //print("Added $quantity of ${widget.shoe.name}to cart.");
+              //Navigator.push(
+                  //context,
+                  //MaterialPageRoute(builder: (context)=>),
+              //);
+              //print("Added $quantity of ${widget.shoe.name}to cart.");
               ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Added to Cart!")),
               );
             },
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 12,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black, // button color
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 6,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+
             child: Text(
               "Add to Cart",
-              style: TextStyle(fontSize: 18),
-            )
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+
+            ),
+
         ),
       ),
+    ),
     );
   }
 }

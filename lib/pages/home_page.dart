@@ -73,11 +73,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: [
-            //logo
+            //logos
             DrawerHeader(child: Image.asset(
-              "assets/images/shoes4.jpg",
-              color: Colors.white,
-
+              "assets/images/logo.jpg",
             ),
             ),
 
