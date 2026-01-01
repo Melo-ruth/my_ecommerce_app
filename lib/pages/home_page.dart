@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         title: Text(
-            "Sein Sneakers",
+            "Hype Sneakers",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,

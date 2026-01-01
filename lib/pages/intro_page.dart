@@ -29,7 +29,7 @@ class IntroPage  extends StatelessWidget {
               const SizedBox(height: 48),
               //title
               const Text(
-                  "Sein Sneakers",
+                  "Hype Sneakers",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
